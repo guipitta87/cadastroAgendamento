@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>AgendamentoApp</title>
+	 <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="../../static/materialize/css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      
+      <link rel="stylesheet" href="../../static/style/styleCss.css"/>
+</head>
+<body>
+
+	<header>
+		<nav class="menu">
+		    <div class="nav-wrapper">
+		      <a href="#" class="brand-logo">Agendamento</a>
+		      <ul id="nav-mobile" class="right hide-on-med-and-down">
+		        <li><a href="/eventos" class="waves-effect waves-light btn"><i class="material-icons left">add_circle_outline</i>Lista de Agendamento</a></li>
+		      </ul>
+		    </div>
+		</nav>
+	</header>
+	
+	<div th:each="agendamento : ${agendamento}" class="container detalhesAgendamento">
+	<h5>Detalhes do Agendamento</h5>
+		<div class="row">
+			<p>Nome do Motorista: <span th:text="${agendamento.nomeMotorista}"></span></p>
+			<p>Documento do Motorista: <span th:text="${agendamento.documentoMotorista}"></span></p>
+			<p>Local: <span th:text="${agendamento.local}"></span></p>
+			<p>Data: <span th:text="${agendamento.data}"></span></p>
+			<p>Horario: <span th:text="${agendamento.horario}"></span></p>
+		</div>
+	</div>
+	
+		 <th:block th:include="mensagemValidacao"></th:block>
+		<div class="container formVeiculo">
+		<form method="post" th:object="${veiculo}">
+			Placa: <input type="text" value="" name="placa" placeholder="ABC-1234" class="validate"/>
+			<button class="waves-effect waves-light btn" type="submit">Adicionar</button>
+		</form>
+		</div>
+
+	<table class="container tabelaVeiculo">
+		<thead>
+			<tr>
+				<th>Placa</th>
+				<th>Deletar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="veiculo : ${veiculos}">
+				<td><span th:text="${veiculo.placa}"></span></td>
+				<td><a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('EC#deletarVeiculo').arg(0, convidado.placa)).build()}"><i class="material-icons left">delete</i></a></td>
+			</tr>
+		</tbody>
+	</table>
+	
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../static/materialize/js/materialize.min.js"></script>
+
+</body>
+
+
+</html>
